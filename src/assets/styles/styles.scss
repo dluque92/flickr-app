@@ -10,9 +10,20 @@
 html, body {
   height: 100%;
   margin: 0;
-  background-color: $light-grey-color;
+  background-color: $light-dark-grey-color;
 }
 
 * {
   font-family: Raleway;
+}
+
+.mat-card {
+  background-color: $light-grey-color;
+  color: $light-dark-gradient-color;
+
+  .mat-card-header {
+    .mat-car-title {
+
+    }
+  }
 }

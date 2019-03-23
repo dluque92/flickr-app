@@ -1,3 +1,26 @@
-<p>
-  result works!
-</p>
+<mat-toolbar color="primary">
+  <mat-toolbar-row class="d-flex justify-content-end">
+      <button
+        mat-button
+        (click)="openAdvance = !openAdvance">
+        Advanced
+        <mat-icon>settings</mat-icon>
+      </button>
+  </mat-toolbar-row>
+  <mat-toolbar-row [@isOpen]="openAdvance"></mat-toolbar-row>
+</mat-toolbar>
+
+<mat-grid-list
+  [cols]="4"
+  rowHeight="4:5">
+  <mat-grid-tile *ngFor="let photo of dataResult">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>{{photo.title}}</mat-card-title>
+      </mat-card-header>
+      <img
+        mar-card-image
+        src="{{photo.url}}">
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
