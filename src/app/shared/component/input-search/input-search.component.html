@@ -1,0 +1,10 @@
+<form [formGroup]="form" (ngSubmit)="searchData()">
+  <mat-form-field>
+    <input
+      matInput
+      autocomplete="off"
+      placeholder='Search photos...'
+      formControlName="dataToSearch">
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+</form>

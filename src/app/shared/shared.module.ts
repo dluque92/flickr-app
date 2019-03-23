@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {
   MatCheckboxModule,
+  MatBadgeModule,
   MatButtonModule,
   MatInputModule,
   MatAutocompleteModule,
@@ -34,12 +36,20 @@ import {
   MatPaginatorModule
 } from '@angular/material';
 
+import { InputSearchComponent } from './component/input-search/input-search.component';
+import { HttpUtils } from './services/utils/http-utils';
+
 @NgModule({
-  declarations: [],
+  declarations: [
+    InputSearchComponent
+  ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
 
     MatCheckboxModule,
+    MatBadgeModule,
     MatButtonModule,
     MatInputModule,
     MatAutocompleteModule,
@@ -71,7 +81,13 @@ import {
     MatPaginatorModule
   ],
   exports: [
+    InputSearchComponent,
+
+    FormsModule,
+    ReactiveFormsModule,
+
     MatCheckboxModule,
+    MatBadgeModule,
     MatButtonModule,
     MatInputModule,
     MatAutocompleteModule,
@@ -101,6 +117,9 @@ import {
     MatTableModule,
     MatSortModule,
     MatPaginatorModule
+  ],
+  providers: [
+    HttpUtils
   ]
 })
 export class SharedModule { }
