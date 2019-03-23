@@ -27,9 +27,17 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              {
+                "input": "node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css"
+              },
+              "src/assets/styles/styles.scss"
             ],
             "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/assets/styles"
+              ]
+            },
             "es5BrowserSupport": true
           },
           "configurations": {
@@ -84,7 +92,7 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "src/styles.scss"
+              "src/assets/styles/styles.scss"
             ],
             "scripts": [],
             "assets": [
