@@ -27,10 +27,13 @@ export class InputSearchComponent implements OnInit {
 
   async searchData() {
     try {
+      const tag = this.form.get('dataToSearch').value;
 
       const result = await this.flickrService.search<Photos>({
-        tags: this.form.get('dataToSearch').value,
-        per_page: 48,
+        tags: tag,
+        per_page: 10,
+        page: 1,
+        extras: 'description',
         format: 'json',
         nojsoncallback: 1
       });
@@ -39,7 +42,7 @@ export class InputSearchComponent implements OnInit {
 
       this.flickrService.setSearchResult(result);
 
-      this.router.navigateByUrl('result');
+      this.router.navigateByUrl(`result/${tag}`);
     } catch (e) {
       console.log(e);
     }

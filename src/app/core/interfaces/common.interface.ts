@@ -1,12 +1,12 @@
 export interface Photos {
-  photos: {
+  photos?: {
     page: number;
     pages: number;
     perpages: number;
     total: number;
     photo: Photo[];
   };
-  stat: string;
+  stat?: string;
 }
 
 export interface Photo {
@@ -20,4 +20,7 @@ export interface Photo {
   server: string;
   title: string;
   url: string;
+  description: {
+    _content: string;
+  };
 }

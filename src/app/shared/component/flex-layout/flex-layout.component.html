@@ -1,0 +1,30 @@
+<div
+  fxFill
+  fxLayout="column"
+  fxLayoutAlign="space-between">
+  <mat-paginator
+    *ngIf="hasPagination"
+    [length]="length"
+    [pageSize]="pageSize"
+    [pageIndex]="pageIndex"
+    [pageSizeOptions]="[10, 20, 50]"
+    (page)="getPage($event)">
+  </mat-paginator>
+  <div
+    fxLayout="row wrap"
+    class="justify-content-between">
+    <ng-container *ngFor="let photo of data">
+      <mat-card class="m-3">
+        <img
+          mar-card-image
+          src="{{photo.url}}">
+        <mat-card-content>
+          <p
+            class="d-grid mt-2"
+            [innerHTML]="photo.description._content">
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+  </div>
+</div>

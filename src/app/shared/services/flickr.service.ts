@@ -15,25 +15,29 @@ export class FlickrService {
   private static URL_SEARCH = `${FlickrService.URL}.search&api_key=${FlickrService.KEY}`;
   private static URL_RECENT = `${FlickrService.URL}.getRecent&api_key=${FlickrService.KEY}`
 
-  $searchResult: BehaviorSubject<Array<Photo>> = new BehaviorSubject<Array<Photo>>(this.firstSearch);
+  $searchResult: BehaviorSubject<Photos> = new BehaviorSubject<Photos>(this.firstSearch);
 
   constructor(
     private http: HttpClient,
     private httpUtils: HttpUtils
   ) { }
 
-  get firstSearch(): Array<Photo> {
-    return [];
+  get firstSearch(): Photos {
+    return null;
   }
 
   setSearchResult(result: Photos) {
-    const photos = result.photos.photo.map( photo => this.generateUrl(photo));
+    result.photos.photo.map( photo => this.generateUrl(photo));
 
-    this.$searchResult.next(photos);
+    this.$searchResult.next(result);
   }
 
-  async getRecents<T>(filter?: Record<string, any>): Promise<T> {
-    const searchParams = this.httpUtils.searchParamsFrom(filter);
+  async getRecents<T>(): Promise<T> {
+    const searchParams = this.httpUtils.searchParamsFrom({
+      format: 'json',
+      extras: 'description',
+      nojsoncallback: 1
+    });
 
     try {
       return await this.http.get<T>(FlickrService.URL_RECENT, {params: searchParams}).toPromise();

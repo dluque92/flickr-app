@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { PageEvent } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
 
 import { takeUntil } from 'rxjs/operators';
 
 import { StructureClass } from '../shared/classes/structure.class';
 import { FlickrService } from '../shared/services/flickr.service';
-import { Photo } from '../core/interfaces/common.interface';
+import { Photo, Photos } from '../core/interfaces/common.interface';
 
 @Component({
   selector: 'app-result',
@@ -29,9 +31,13 @@ import { Photo } from '../core/interfaces/common.interface';
 export class ResultComponent extends StructureClass implements OnInit {
   openAdvance = false;
   dataResult: Photo[];
+  size = 10;
+  page = 0;
+  total = 0;
 
   constructor(
-    public flickrService: FlickrService
+    public flickrService: FlickrService,
+    private activatedRoute: ActivatedRoute
   ) {
     super();
 
@@ -39,12 +45,47 @@ export class ResultComponent extends StructureClass implements OnInit {
       .pipe(
         takeUntil(this.cancelSubscription$)
       )
-      .subscribe((data: Array<any>) => {
-        this.dataResult = data;
+      .subscribe((data: Photos) => {
+        if (data) {
+          this.dataResult = data.photos.photo;
+          this.size = data.photos.perpages;
+          this.page = data.photos.page - 1;
+          this.total = data.photos.total;
+        }
       });
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    try {
+      const result = await this.flickrService.search<Photos>({
+        tags: this.activatedRoute.snapshot.paramMap.get('tag'),
+        per_page: 10,
+        page: 1,
+        extras: 'description',
+        format: 'json',
+        nojsoncallback: 1
+      });
+
+      this.flickrService.setSearchResult(result);
+    } catch (e) {
+      console.log(e);
+    }
   }
 
+  async getData(event: PageEvent) {
+    try {
+      const result = await this.flickrService.search<Photos>({
+        tags: this.activatedRoute.snapshot.paramMap.get('tag'),
+        per_page: event.pageSize,
+        page: event.pageIndex + 1,
+        extras: 'description',
+        format: 'json',
+        nojsoncallback: 1
+      });
+
+      this.flickrService.setSearchResult(result);
+    } catch (e) {
+      console.log(e);
+    }
+  }
 }

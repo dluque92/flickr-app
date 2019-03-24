@@ -1,6 +1,9 @@
-<form [formGroup]="form" (ngSubmit)="searchData()">
+<form
+  [formGroup]="form"
+  (ngSubmit)="searchData(); input.blur()">
   <mat-form-field>
     <input
+      #input
       matInput
       autocomplete="off"
       placeholder='Search photos...'

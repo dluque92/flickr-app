@@ -36,12 +36,16 @@ import {
   MatPaginatorModule
 } from '@angular/material';
 
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { InputSearchComponent } from './component/input-search/input-search.component';
 import { HttpUtils } from './services/utils/http-utils';
+import { FlexLayoutComponent } from './component/flex-layout/flex-layout.component';
 
 @NgModule({
   declarations: [
-    InputSearchComponent
+    InputSearchComponent,
+    FlexLayoutComponent
   ],
   imports: [
     CommonModule,
@@ -78,10 +82,12 @@ import { HttpUtils } from './services/utils/http-utils';
     MatSnackBarModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    FlexLayoutModule
   ],
   exports: [
     InputSearchComponent,
+    FlexLayoutComponent,
 
     FormsModule,
     ReactiveFormsModule,
@@ -116,7 +122,8 @@ import { HttpUtils } from './services/utils/http-utils';
     MatSnackBarModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    FlexLayoutModule
   ],
   providers: [
     HttpUtils

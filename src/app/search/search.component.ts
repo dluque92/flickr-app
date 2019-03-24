@@ -23,22 +23,20 @@ export class SearchComponent extends StructureClass implements OnInit {
       .pipe(
         takeUntil(this.cancelSubscription$)
       )
-      .subscribe((data: Array<Photo>) => {
-        this.dataResult = data;
+      .subscribe((data: Photos) => {
+        if (data) {
+          this.dataResult = data.photos.photo;
+        }
       });
   }
 
   async ngOnInit() {
     try {
-      const result = await this.flickrService.getRecents<Photos>({
-        format: 'json',
-        nojsoncallback: 1
-      });
+      const result = await this.flickrService.getRecents<Photos>();
 
       this.flickrService.setSearchResult(result);
     } catch (e) {
-
+      console.error(e);
     }
   }
-
 }

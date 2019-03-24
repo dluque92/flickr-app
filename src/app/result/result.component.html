@@ -10,17 +10,11 @@
   <mat-toolbar-row [@isOpen]="openAdvance"></mat-toolbar-row>
 </mat-toolbar>
 
-<mat-grid-list
-  [cols]="4"
-  rowHeight="4:5">
-  <mat-grid-tile *ngFor="let photo of dataResult">
-    <mat-card class="example-card">
-      <mat-card-header>
-        <mat-card-title>{{photo.title}}</mat-card-title>
-      </mat-card-header>
-      <img
-        mar-card-image
-        src="{{photo.url}}">
-    </mat-card>
-  </mat-grid-tile>
-</mat-grid-list>
+<app-flex-layout
+  [hasPagination]="true"
+  [data]="dataResult"
+  [length]="total"
+  [pageSize]="size"
+  [pageIndex]="page"
+  (pageChange)="getData($event)">
+</app-flex-layout>

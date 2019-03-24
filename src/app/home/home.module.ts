@@ -24,7 +24,7 @@ const routes: Routes = [
         component: SearchComponent,
       },
       {
-        path: 'result',
+        path: 'result/:tag',
         component: ResultComponent,
       },
       {
