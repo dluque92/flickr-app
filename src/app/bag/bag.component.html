@@ -1,3 +1,4 @@
-<p>
-  bag works!
-</p>
+<app-flex-layout
+  [data]="(bagState | async).photos"
+  [canRemove]="true">
+</app-flex-layout>

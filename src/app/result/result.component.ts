@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {animate, state, style, transition, trigger} from '@angular/animations';
-import {PageEvent} from '@angular/material';
-import {ActivatedRoute} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { PageEvent } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
 
-import {takeUntil} from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 
-import {StructureClass} from '../shared/classes/structure.class';
-import {FlickrService} from '../shared/services/flickr.service';
-import {Photo, Photos} from '../core/interfaces/common.interface';
-import {SizeOption} from '../core/interfaces/common-types.enum';
+import { StructureClass } from '../shared/classes/structure.class';
+import { FlickrService } from '../shared/services/flickr.service';
+import { Photo, Photos } from '../core/interfaces/common.interface';
+import { SizeOption } from '../core/interfaces/common-types.enum';
 
 @Component({
   selector: 'app-result',
@@ -89,10 +89,18 @@ export class ResultComponent extends StructureClass implements OnInit {
       .subscribe((data: Photos) => {
         if (data) {
           this.dataResult = data.photos.photo;
-          this.size = data.photos.perpages;
+          this.size = data.photos.perpage;
           this.page = data.photos.page - 1;
           this.total = data.photos.total;
         }
+      });
+
+    this.flickrService.$sizeSelected
+      .pipe(
+        takeUntil(this.cancelSubscription$)
+      )
+      .subscribe((data: SizeOption) => {
+        this.sizeSelected = data;
       });
   }
 
@@ -107,14 +115,14 @@ export class ResultComponent extends StructureClass implements OnInit {
         nojsoncallback: 1
       });
 
-      this.flickrService.setSearchResult(result,  SizeOption.Medium);
+      this.flickrService.setSearchResult(result);
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   }
 
   async changeSize(value: any) {
-    this.sizeSelected = value;
+    this.flickrService.setSizeSelected(value);
 
     try {
       const result = await this.flickrService.search<Photos>({
@@ -126,9 +134,9 @@ export class ResultComponent extends StructureClass implements OnInit {
         nojsoncallback: 1
       });
 
-      this.flickrService.setSearchResult(result, value);
+      this.flickrService.setSearchResult(result);
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   }
 
@@ -143,9 +151,9 @@ export class ResultComponent extends StructureClass implements OnInit {
         nojsoncallback: 1
       });
 
-      this.flickrService.setSearchResult(result, this.sizeSelected);
+      this.flickrService.setSearchResult(result);
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   }
 }

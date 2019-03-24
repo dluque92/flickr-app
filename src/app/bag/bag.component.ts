@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { StorageService } from '../shared/services/storage.service';
+import { Photo } from '../core/interfaces/common.interface';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-bag',
@@ -6,10 +9,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./bag.component.scss']
 })
 export class BagComponent implements OnInit {
+  bagState: Observable<{photos: Photo[]}>;
 
-  constructor() { }
+  constructor(
+    private storageService: StorageService
+  ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.bagState = this.storageService.getPhotos();
   }
-
 }

@@ -3,9 +3,9 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { BehaviorSubject } from 'rxjs';
 
+import { Photo, Photos } from '../../core/interfaces/common.interface';
+import { SizeOption } from '../../core/interfaces/common-types.enum';
 import { HttpUtils } from './utils/http-utils';
-import { Photos, Photo } from '../../core/interfaces/common.interface';
-import {SizeOption} from '../../core/interfaces/common-types.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,7 @@ export class FlickrService {
   private static URL_RECENT = `${FlickrService.URL}.getRecent&api_key=${FlickrService.KEY}`
 
   $searchResult: BehaviorSubject<Photos> = new BehaviorSubject<Photos>(this.firstSearch);
+  $sizeSelected: BehaviorSubject<SizeOption> = new BehaviorSubject<SizeOption>(SizeOption.Medium);
 
   constructor(
     private http: HttpClient,
@@ -27,8 +28,12 @@ export class FlickrService {
     return null;
   }
 
-  setSearchResult(result: Photos, size?: SizeOption) {
-    result.photos.photo.map( photo => this.generateUrl(photo, size));
+  setSizeSelected(size: SizeOption) {
+    this.$sizeSelected.next(size);
+  }
+
+  setSearchResult(result: Photos) {
+    result.photos.photo.map( photo => this.generateUrl(photo, this.$sizeSelected.value));
 
     this.$searchResult.next(result);
   }

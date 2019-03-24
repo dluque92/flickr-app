@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {FlickrService} from '../shared/services/flickr.service';
+
+import { Observable } from 'rxjs';
+
+import { StorageService } from '../shared/services/storage.service';
+import { Photo } from '../core/interfaces/common.interface';
 
 @Component({
   selector: 'app-home',
@@ -7,12 +11,13 @@ import {FlickrService} from '../shared/services/flickr.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  dataResult: Observable<{photos: Photo[]}>;
 
   constructor(
-    public flickrService: FlickrService
+    private storageService: StorageService
   ) { }
 
   ngOnInit() {
+    this.dataResult = this.storageService.getPhotos();
   }
-
 }

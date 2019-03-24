@@ -10,7 +10,7 @@
   <mat-toolbar-row [@isOpen]="openAdvance">
     <p>
       Minimum size:
-      <mat-button-toggle-group #group="matButtonToggleGroup" appearance="legacy">
+      <mat-button-toggle-group appearance="legacy">
         <mat-button-toggle
           *ngFor="let size of sizes"
           [checked]="sizeSelected === size.value"
@@ -25,6 +25,7 @@
 
 <app-flex-layout
   [hasPagination]="true"
+  [canAdd]="true"
   [data]="dataResult"
   [length]="total"
   [pageSize]="size"

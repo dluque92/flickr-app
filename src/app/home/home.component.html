@@ -12,9 +12,10 @@
       <app-input-search></app-input-search>
       <button
         mat-icon-button
-        class="m-2 ml-4">
+        class="m-2 ml-4"
+        [routerLink]="['/bag']">
         <mat-icon
-          matBadge="8"
+          matBadge="{{(dataResult | async).photos.length}}"
           matBadgePosition="before"
           matBadgeColor="accent">
           business_center

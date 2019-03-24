@@ -27,6 +27,22 @@
             [innerHTML]="photo.description._content">
           </p>
         </mat-card-content>
+        <mat-card-actions>
+          <button
+            mat-icon-button
+            *ngIf="canAdd"
+            matTooltip="Add to bag"
+            (click)="addToBag(photo)">
+            <mat-icon>add_photo_alternate</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            *ngIf="canRemove"
+            matTooltip="Remove from bag"
+            (click)="removeFromBag(photo.id)">
+            <mat-icon>delete_forever</mat-icon>
+          </button>
+        </mat-card-actions>
       </mat-card>
     </ng-container>
   </div>

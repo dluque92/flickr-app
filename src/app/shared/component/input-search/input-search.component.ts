@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 
 import { Photos } from '../../../core/interfaces/common.interface';
 import { FlickrService } from '../../services/flickr.service';
-import {SizeOption} from '../../../core/interfaces/common-types.enum';
 
 @Component({
   selector: 'app-input-search',
@@ -41,7 +40,7 @@ export class InputSearchComponent implements OnInit {
 
       this.form.reset();
 
-      this.flickrService.setSearchResult(result, SizeOption.Medium);
+      this.flickrService.setSearchResult(result);
 
       this.router.navigateByUrl(`result/${tag}`);
     } catch (e) {

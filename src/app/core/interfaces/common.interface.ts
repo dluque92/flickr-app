@@ -2,7 +2,7 @@ export interface Photos {
   photos?: {
     page: number;
     pages: number;
-    perpages: number;
+    perpage: number;
     total: number;
     photo: Photo[];
   };
