@@ -7,7 +7,20 @@
         <mat-icon>settings</mat-icon>
       </button>
   </mat-toolbar-row>
-  <mat-toolbar-row [@isOpen]="openAdvance"></mat-toolbar-row>
+  <mat-toolbar-row [@isOpen]="openAdvance">
+    <p>
+      Minimum size:
+      <mat-button-toggle-group #group="matButtonToggleGroup" appearance="legacy">
+        <mat-button-toggle
+          *ngFor="let size of sizes"
+          [checked]="sizeSelected === size.value"
+          [value]="size.value"
+          (change)="changeSize($event.value)">
+          {{size.text}}
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </p>
+  </mat-toolbar-row>
 </mat-toolbar>
 
 <app-flex-layout

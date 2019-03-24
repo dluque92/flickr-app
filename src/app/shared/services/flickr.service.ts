@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 
 import { HttpUtils } from './utils/http-utils';
 import { Photos, Photo } from '../../core/interfaces/common.interface';
+import {SizeOption} from '../../core/interfaces/common-types.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +27,8 @@ export class FlickrService {
     return null;
   }
 
-  setSearchResult(result: Photos) {
-    result.photos.photo.map( photo => this.generateUrl(photo));
+  setSearchResult(result: Photos, size?: SizeOption) {
+    result.photos.photo.map( photo => this.generateUrl(photo, size));
 
     this.$searchResult.next(result);
   }
@@ -35,7 +36,7 @@ export class FlickrService {
   async getRecents<T>(): Promise<T> {
     const searchParams = this.httpUtils.searchParamsFrom({
       format: 'json',
-      extras: 'description',
+      extras: 'description, date_taken',
       nojsoncallback: 1
     });
 
@@ -56,8 +57,8 @@ export class FlickrService {
     }
   }
 
-  generateUrl(photo: Photo): Photo {
-    photo.url = `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`;
+  generateUrl(photo: Photo, size?: string): Photo {
+    photo.url = `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}${size}.jpg`;
     return photo;
   }
 }

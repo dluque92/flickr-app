@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import { takeUntil } from 'rxjs/operators';
+import {takeUntil} from 'rxjs/operators';
 
-import { Photos, Photo } from '../core/interfaces/common.interface';
-import { FlickrService } from '../shared/services/flickr.service';
-import { StructureClass } from '../shared/classes/structure.class';
+import {Photo, Photos} from '../core/interfaces/common.interface';
+import {FlickrService} from '../shared/services/flickr.service';
+import {StructureClass} from '../shared/classes/structure.class';
+import {SizeOption} from '../core/interfaces/common-types.enum';
 
 @Component({
   selector: 'app-search',
@@ -34,7 +35,7 @@ export class SearchComponent extends StructureClass implements OnInit {
     try {
       const result = await this.flickrService.getRecents<Photos>();
 
-      this.flickrService.setSearchResult(result);
+      this.flickrService.setSearchResult(result, SizeOption.Medium);
     } catch (e) {
       console.error(e);
     }

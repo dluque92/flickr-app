@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { Photos } from '../../../core/interfaces/common.interface';
 import { FlickrService } from '../../services/flickr.service';
+import {SizeOption} from '../../../core/interfaces/common-types.enum';
 
 @Component({
   selector: 'app-input-search',
@@ -33,14 +34,14 @@ export class InputSearchComponent implements OnInit {
         tags: tag,
         per_page: 10,
         page: 1,
-        extras: 'description',
+        extras: 'description, date_taken',
         format: 'json',
         nojsoncallback: 1
       });
 
       this.form.reset();
 
-      this.flickrService.setSearchResult(result);
+      this.flickrService.setSearchResult(result, SizeOption.Medium);
 
       this.router.navigateByUrl(`result/${tag}`);
     } catch (e) {

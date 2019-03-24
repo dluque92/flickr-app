@@ -15,6 +15,9 @@
     class="justify-content-between">
     <ng-container *ngFor="let photo of data">
       <mat-card class="m-3">
+        <mat-card-header>
+          <mat-card-title>{{photo.datetaken}}</mat-card-title>
+        </mat-card-header>
         <img
           mar-card-image
           src="{{photo.url}}">

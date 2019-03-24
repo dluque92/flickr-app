@@ -20,6 +20,7 @@ export interface Photo {
   server: string;
   title: string;
   url: string;
+  datetaken: string;
   description: {
     _content: string;
   };
